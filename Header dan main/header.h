@@ -19,7 +19,7 @@ void cetaknamapemenang(char nama1[20],char nama2[20],int player);
 void cetakdraw();
 void tampilanakhir();
 void mainmenu();
-//void highscore();
+void highscore();
 void timer();
 //variabel Global
 char matrix [7][7];

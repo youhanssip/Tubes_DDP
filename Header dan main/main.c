@@ -10,7 +10,7 @@ int main(){
         play();
     }
     if (input==2){
-        //highscore();
+        highscore();
     }
     if (input==3){
         exit(1);
@@ -524,6 +524,20 @@ void tampilanakhir(){
     printf("1.Play Again\n");
     printf("2.Main Menu");
     printf("\nInput Pilihan Anda:");
+}
+void highscore(){
+    FILE *FF; //penunjuk ke file
+	char CC; //var penunjuk karakter yang dibaca
+	
+	if((FF=fopen("Highscore.txt","r"))== NULL) { //Buka file mode baca
+		printf("Pembukaan File Gagal !");
+		exit(1); //keluar program
+	}
+    while((CC=getc(FF))!=EOF) { //CC akan berisi karakter yg dibaca, akhir teks dengan EOF
+		putchar(CC); //baca dan tampilkan ke layar
+	}
+	fclose(FF);
+	getchar();
 }
 void inputnama(char nama1[20],char nama2 [20]){
     printf("Input Nama player 1:");
