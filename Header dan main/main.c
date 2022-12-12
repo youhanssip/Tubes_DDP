@@ -29,7 +29,7 @@ void inputangka(int *angka){
     scanf("%d",& *angka);
 }
 void play(){
-    int input,i=0,player=1;
+    int input,i=0,player=1,time;
     char nama1[20];
     char nama2[20];
     inputnama(nama1,nama2);
@@ -42,13 +42,16 @@ void play(){
         if(player==3){
             player=1;
         }
-        inputkoordinat(nama1,nama2,player);
+        inputkoordinat(nama1,nama2,player,input);
         system("cls");
         buatpapan(input);
         i=cektempatkosong(input);
         i=cekpemenang(input);
         player++;
+        
+        
     }while(i==0);
+
     if(i==1){
         cetaknamapemenang(nama1,nama2,player);
         tampilanakhir();
@@ -161,25 +164,25 @@ void pilihpapan(){
     printf("\n3.7x7");
     printf("\nInput Angka Anda :");
 }
-void inputkoordinat(char nama1[20],char nama2[20],int player){
+void inputkoordinat(char nama1[20],char nama2[20],int player,int input){
     int x,y;
-    if(player==1){
+    if(player==1&&input==1){
         smb.simbol='X';
         printf("%s Tolong Input Koordinat baris dan kolom:",nama1);
+        scanf("\n%d %d",&x,&y);
+         while(matrix[x][y]!=' '||x>2||y>2){
+            printf("Input tidak valid silahkan coba lagi:");
             scanf("\n%d %d",&x,&y);
-            while(matrix[x][y]!=' '){
-                printf("Input tidak valid silahkan coba lagi:");
-                scanf("\n%d %d",&x,&y);
-            }
-            if (matrix[x][y]==' '){
-                matrix[x][y]=smb.simbol;
-            }
+        }
+         if (matrix[x][y]==' '){
+            matrix[x][y]=smb.simbol;
+        }
     }
-    else if(player==2){
+    else if(player==2&&input==1){
         smb.simbol='O';
         printf("%s Tolong Input Koordinat baris dan kolom:",nama2);
             scanf("\n%d %d",&x,&y);
-            while(matrix[x][y]!=' '){
+            while(matrix[x][y]!=' '||x>2||y>2){
                 printf("Input tidak valid silahkan coba lagi:");
                 scanf("\n%d %d",&x,&y);
             }
@@ -187,7 +190,56 @@ void inputkoordinat(char nama1[20],char nama2[20],int player){
                 matrix[x][y]=smb.simbol;
             }
         }
+    if(player==1&&input==2){
+        smb.simbol='X';
+        printf("%s Tolong Input Koordinat baris dan kolom:",nama1);
+        scanf("\n%d %d",&x,&y);
+         while(matrix[x][y]!=' '||x>4||y>4){
+            printf("Input tidak valid silahkan coba lagi:");
+            scanf("\n%d %d",&x,&y);
+        }
+         if (matrix[x][y]==' '){
+            matrix[x][y]=smb.simbol;
+        }
     }
+    else if(player==2&&input==2){
+        smb.simbol='O';
+        printf("%s Tolong Input Koordinat baris dan kolom:",nama2);
+            scanf("\n%d %d",&x,&y);
+            while(matrix[x][y]!=' '||x>4||y>4){
+                printf("Input tidak valid silahkan coba lagi:");
+                scanf("\n%d %d",&x,&y);
+            }
+            if (matrix[x][y]==' '){
+                matrix[x][y]=smb.simbol;
+            }
+        }
+    if(player==1&&input==3){
+        smb.simbol='X';
+        printf("%s Tolong Input Koordinat baris dan kolom:",nama1);
+        scanf("\n%d %d",&x,&y);
+         while(matrix[x][y]!=' '||x>6||y>6){
+            printf("Input tidak valid silahkan coba lagi:");
+            scanf("\n%d %d",&x,&y);
+        }
+         if (matrix[x][y]==' '){
+            matrix[x][y]=smb.simbol;
+        }
+    }
+    else if(player==2&&input==3){
+        smb.simbol='O';
+        printf("%s Tolong Input Koordinat baris dan kolom:",nama2);
+            scanf("\n%d %d",&x,&y);
+            while(matrix[x][y]!=' '||x>6||y>6){
+                printf("Input tidak valid silahkan coba lagi:");
+                scanf("\n%d %d",&x,&y);
+            }
+            if (matrix[x][y]==' '){
+                matrix[x][y]=smb.simbol;
+            }
+        }
+    
+}
 int cekpemenang(int input){
     int i,j=0;
     //Cek Pemenang 3x3
@@ -462,7 +514,7 @@ void mainmenu(){
     printf("\n                                        | |    | |__| | | |_____");
     printf("\n                                        |_|    |______| |_______|");
     printf("\nSilahkan Pilih Menu:\n");
-    printf("\n1.Single Player\n");
+    printf("\n1.Multi Player\n");
     printf("2.HighScore\n");
     printf("3.Exit\n");
     printf("Input Angka Anda:");
@@ -478,4 +530,7 @@ void inputnama(char nama1[20],char nama2 [20]){
     scanf("\n%[^\n]",nama1);
     printf("Input Nama player 2:");
     scanf("\n%[^\n]",nama2);
+}
+void timer(){
+    
 }
