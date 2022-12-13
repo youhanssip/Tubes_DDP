@@ -5,7 +5,6 @@ int main(){
     system("cls");
     mainmenu();
     inputangka(&input);
-    system("cls");
     if(input==1){
         play();
     }
@@ -14,6 +13,20 @@ int main(){
     }
     if (input==3){
         exit(1);
+    }
+    if(input>3){
+        printf("Input tidak valid silahkan input ulang:");
+        inputangka(&input);
+        if(input==1){
+        play();
+        }
+        if (input==2){
+        highscore();
+        }
+        if (input==3){
+        exit(1);
+        }
+
     }
     return 0;
 }
@@ -32,6 +45,7 @@ void play(){
     int input,i=0,player=1,time;
     char nama1[20];
     char nama2[20];
+    system("cls");
     inputnama(nama1,nama2);
     system("cls");
     pilihpapan();
@@ -526,6 +540,7 @@ void tampilanakhir(){
     printf("\nInput Pilihan Anda:");
 }
 void highscore(){
+    system("cls");
     FILE *FF; //penunjuk ke file
 	char CC; //var penunjuk karakter yang dibaca
 	
