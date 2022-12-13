@@ -14,17 +14,17 @@ int main(){
     if (input==3){
         exit(1);
     }
-    if(input>3){
+    while(input>3){
         printf("Input tidak valid silahkan input ulang:");
         inputangka(&input);
         if(input==1){
-        play();
+            play();
         }
         if (input==2){
-        highscore();
+            highscore();
         }
         if (input==3){
-        exit(1);
+            exit(1);
         }
 
     }
@@ -492,19 +492,19 @@ int cektempatkosong(int input){
 void cetakdraw(){
     system("cls");
     printf("+---------------------------------------------+");
-    printf("\n|                 !!!Seri!!!                  | ");
+    printf("\n                 !!!Seri!!!                   ");
     printf("\n+---------------------------------------------+\n");
 }
 void cetaknamapemenang(char nama1[20],char nama2[20],int player){
     system("cls");
     if(player==2){
         printf("+---------------------------------------------+");
-    	printf("\n|           !!!%s Menang!!!              | ", nama1);
+    	printf("\n           !!!%s Menang!!!               ", nama1);
   	 	printf("\n+---------------------------------------------+\n");
     }
     else if(player==1){
         printf("+---------------------------------------------+");
-    	printf("\n|           !!!%s Menang!!!              | ", nama2);
+    	printf("\n           !!!%s Menang!!!                ", nama2);
   	 	printf("\n+---------------------------------------------+\n");
     }
 }
@@ -541,15 +541,15 @@ void tampilanakhir(){
 }
 void highscore(){
     system("cls");
-    FILE *FF; //penunjuk ke file
-	char CC; //var penunjuk karakter yang dibaca
+    FILE *FF; 
+	char CC; 
 	
-	if((FF=fopen("Highscore.txt","r"))== NULL) { //Buka file mode baca
+	if((FF=fopen("Highscore.txt","r"))== NULL) { 
 		printf("Pembukaan File Gagal !");
-		exit(1); //keluar program
+		exit(1); 
 	}
-    while((CC=getc(FF))!=EOF) { //CC akan berisi karakter yg dibaca, akhir teks dengan EOF
-		putchar(CC); //baca dan tampilkan ke layar
+    while((CC=getc(FF))!=EOF) { 
+		putchar(CC); 
 	}
 	fclose(FF);
 	getchar();
