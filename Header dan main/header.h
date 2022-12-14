@@ -6,6 +6,10 @@
 typedef struct{
     char simbol;
 }Mark;
+typedef struct{
+    int skorplayer;
+    int highscore;
+}skor;
 void inputangka(int *angka);
 void inisialisasi(char matrix[7][7]);
 void inputnama(char nama1[20],char nama2[20]);
@@ -20,6 +24,9 @@ void cetakdraw();
 void tampilanakhir();
 void mainmenu();
 void highscore();
+int cekscore(int skor1,int skor2);
+void cetakskor(int skorterbesar);
+void score(int *player1,int *player2,int player,int i);
 void timer();
 //variabel Global
 char matrix [7][7];

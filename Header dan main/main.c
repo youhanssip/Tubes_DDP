@@ -5,6 +5,7 @@ int main(){
     system("cls");
     mainmenu();
     inputangka(&input);
+    system("cls");
     if(input==1){
         play();
     }
@@ -53,6 +54,7 @@ void play(){
     inputangka(&input);
     system("cls");
     buatpapan(input);
+    score(i);
     do{
         if(player==3){
             player=1;
@@ -60,11 +62,12 @@ void play(){
         inputkoordinat(nama1,nama2,player,input);
         system("cls");
         buatpapan(input);
-        i=cektempatkosong(input);
+        score(i);
         i=cekpemenang(input);
-        player++;
-        
-        
+        if(i!=1){
+            i=cektempatkosong(input);
+        }
+        player++;   
     }while(i==0);
 
     if(i==1){
@@ -498,7 +501,7 @@ int cektempatkosong(int input){
             }
         }
     }
-    if(input==2){
+    else if(input==2){
         for (i=0;i<=4;i++){
             for(j=0;j<=4;j++){
                 if(matrix[i][j]==' '){
@@ -507,7 +510,7 @@ int cektempatkosong(int input){
             }
         }
     }
-    if(input==3){
+    else if(input==3){
         for (i=0;i<=6;i++){
             for(j=0;j<=6;j++){
                 if(matrix[i][j]==' '){
@@ -520,9 +523,14 @@ int cektempatkosong(int input){
 }
 void cetakdraw(){
     system("cls");
-    printf("+---------------------------------------------+");
-    printf("\n|                 !!!Seri!!!                  | ");
-    printf("\n+---------------------------------------------+\n");
+	printf("                                                  _____\n");                     
+	printf("                                                 |  __ \\\n");                    
+	printf("                                                 | |  | |_ __ __ ___      __\n");
+	printf("                                                 | |  | | '__/ _` \\ \\ /\\ / /\n");
+	printf("                                                 | |__| | | | (_| |\\ V  V / \n"); 
+	printf("                                                 |_____/|_|  \\__,_| \\_/\\_/\n");  
+    printf("\n________________________________________________________________________________________________________________________\n");
+    printf("________________________________________________________________________________________________________________________\n\n\n");   
 }
 void cetaknamapemenang(char nama1[20],char nama2[20],int player){
     system("cls");
@@ -535,19 +543,19 @@ void cetaknamapemenang(char nama1[20],char nama2[20],int player){
  		printf("\n                                               \\/  \\/    |_|_| |_|_| |_|\\___|_|");
         printf("\n________________________________________________________________________________________________________________________\n");
         printf("________________________________________________________________________________________________________________________");
-        printf("\n\n\n                                                 __________________________\n"); 
-    	printf("\n                                                          Selamat!!!       ");
-    	printf("\n                                                          Player 1 ");
-    	printf("\n                                                          %s", nama1);
-    	printf("\n                                                 __________________________\n\n");
+        printf("\n\n\n                                               __________________________\n"); 
+    	printf("\n                                                        Selamat!!!       ");
+    	printf("\n                                                        Player 1 ");
+    	printf("\n                                                        %s", nama1);
+    	printf("\n                                               __________________________\n\n");
     }
     else if(player!=1){ 	
-	 	printf("\n                                         __          __ _ ");                  
-	 	printf("\n                                         \\ \\        / /(_)");                    
- 		printf("\n                                          \\ \\  /\\  / /  _ _ __  _ __   ___ _ __");
- 		printf("\n                                           \\ \\/  \\/ /  | | '_ \\| '_ \\ / _ \\ '__|");
- 		printf("\n                                            \\  /\\  /   | | | | | | | |  __/ |");   
- 		printf("\n                                             \\/  \\/    |_|_| |_|_| |_|\\___|_|");
+	 	printf("\n                                           __          __ _ ");                  
+	 	printf("\n                                           \\ \\        / /(_)");                    
+ 		printf("\n                                            \\ \\  /\\  / /  _ _ __  _ __   ___ _ __");
+ 		printf("\n                                             \\ \\/  \\/ /  | | '_ \\| '_ \\ / _ \\ '__|");
+ 		printf("\n                                              \\  /\\  /   | | | | | | | |  __/ |");   
+ 		printf("\n                                               \\/  \\/    |_|_| |_|_| |_|\\___|_|");
         printf("\n________________________________________________________________________________________________________________________\n");
         printf("________________________________________________________________________________________________________________________");
         printf("\n\n\n                                               __________________________\n"); 
@@ -600,6 +608,9 @@ void highscore(){
 	}
 	fclose(FF);
 	getchar();
+}
+void score(int i){
+    int skor=0;;
 }
 void inputnama(char nama1[20],char nama2 [20]){
 	printf("\n                _______   _    _______        _______   ______   ______        _______   ______   _______");
