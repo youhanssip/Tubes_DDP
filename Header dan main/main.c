@@ -5,12 +5,15 @@ int main(){
     system("cls");
     mainmenu();
     inputangka(&input);
-    system("cls");
     if(input==1){
         play();
     }
     if (input==2){
         highscore();
+        inputangka(&input);
+        if(input==1){
+            main();
+        }
     }
     if (input==3){
         exit(1);
@@ -47,6 +50,7 @@ void play(){
     int input,i=0,player=1,time;
     char nama1[20];
     char nama2[20];
+    system("cls");
     inisialisasi(matrix);
     inputnama(nama1,nama2);
     system("cls");
@@ -54,7 +58,6 @@ void play(){
     inputangka(&input);
     system("cls");
     buatpapan(input);
-    score(i);
     do{
         if(player==3){
             player=1;
@@ -62,7 +65,6 @@ void play(){
         inputkoordinat(nama1,nama2,player,input);
         system("cls");
         buatpapan(input);
-        score(i);
         i=cekpemenang(input);
         if(i!=1){
             i=cektempatkosong(input);
@@ -598,7 +600,7 @@ void tampilanakhir(){
 void highscore(){
     FILE *FF; //penunjuk ke file
 	char CC; //var penunjuk karakter yang dibaca
-	
+	system("cls");
 	if((FF=fopen("Highscore.txt","r"))== NULL) { //Buka file mode baca
 		printf("Pembukaan File Gagal !");
 		exit(1); //keluar program
@@ -606,12 +608,13 @@ void highscore(){
     while((CC=getc(FF))!=EOF) { //CC akan berisi karakter yg dibaca, akhir teks dengan EOF
 		putchar(CC); //baca dan tampilkan ke layar
 	}
+    printf("\n\n\n\n                                                     Input Angka 1 Untuk Kembali");
+    printf("\n                                                     Silahkan Input Angka Anda: ");
+    
 	fclose(FF);
 	getchar();
 }
-void score(int i){
-    int skor=0;;
-}
+
 void inputnama(char nama1[20],char nama2 [20]){
 	printf("\n                _______   _    _______        _______   ______   ______        _______   ______   _______");
     printf("\n               |___ ___| | |  |  _____|      |___ ___| |  __  | |  ____|      |___ ___| |  __  | |  _____|");
