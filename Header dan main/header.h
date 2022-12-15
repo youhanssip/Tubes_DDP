@@ -26,6 +26,7 @@ void mainmenu();
 void highscore();
 int cekscore(int skor1,int skor2);
 void cetakskor(int skorterbesar);
+void exitprogram();
 void timer();
 //variabel Global
 char matrix [7][7];

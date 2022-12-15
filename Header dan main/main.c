@@ -16,7 +16,7 @@ int main(){
         }
     }
     if (input==3){
-        exit(1);
+        exitprogram();
     }
     while(input>3){
         printf("                                                 Input Tidak Valid Coba Lagi\n");
@@ -29,7 +29,7 @@ int main(){
             highscore();
         }
         if (input==3){
-            exit(1);
+            exitprogram();
         }
 
     }
@@ -634,6 +634,13 @@ void inputnama(char nama1[20],char nama2 [20]){
     printf("\n\n                                                Input Nama player 2:\n");
     printf("                                                ");
     scanf("\n%[^\n]",nama2);
+}
+void exitprogram(){
+    system("cls");
+    printf("\n\n\n\n                                                            Exiting Program...");
+    sleep(3);
+    exit(1);
+
 }
 void timer(){
     
