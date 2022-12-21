@@ -638,7 +638,3 @@ void exitprogram(){
     exit(1);
 
 }
-void timer()
-{
-    
-}
