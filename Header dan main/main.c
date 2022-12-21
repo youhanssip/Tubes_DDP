@@ -1,107 +1,105 @@
 #include "header.h"
 int main(){
-    int input;
-    inisialisasi(matrix);
+    int inputfromplayer;
+    inisialisasi();
     system("cls");
     mainmenu();
-    inputangka(&input);
-    if(input==1){
+    inputpilihan(&inputfromplayer);
+    if(inputfromplayer==1){
         play();
     }
-    if (input==2){
+    if (inputfromplayer==2){
         highscore();
-        inputangka(&input);
-        if(input==1){
+        inputpilihan(&inputfromplayer);
+        if(inputfromplayer==1){
             main();
         }
     }
-    if (input==3){
+    if (inputfromplayer==3){
         exitprogram();
     }
-    while(input>3){
+    while(inputfromplayer>3){
         printf("                                                 Input Tidak Valid Coba Lagi\n");
 		printf("                                                 Silahkan Imput Kembali:");
-        inputangka(&input);
-        if(input==1){
+        inputpilihan(&inputfromplayer);
+        if(inputfromplayer==1){
             play();
         }
-        if (input==2){
+        if (inputfromplayer==2){
             highscore();
         }
-        if (input==3){
+        if (inputfromplayer==3){
             exitprogram();
         }
 
     }
     return 0;
 }
-void inisialisasi (char matrix[7][7]){
+void inisialisasi(){
     int i,j;
     for (i=0;i<=6;i++){
         for(j=0;j<=6;j++){
-            matrix[i][j]=' ';
+            brd.matrix[i][j]=' ';
         }
     }
 }
-void inputangka(int *angka){
-    scanf("%d",& *angka);
+void inputpilihan(int *pilih_angka){
+    scanf("%d",& *pilih_angka);
 }
 void play(){
-    int input,i=0,player=1,time;
-    char nama1[20];
-    char nama2[20];
+    int inputfromplayer,cek=0,giliranplayer=1;
     system("cls");
-    inisialisasi(matrix);
-    inputnama(nama1,nama2);
+    inisialisasi();
+    inputnama();
     system("cls");
     pilihpapan();
-    inputangka(&input);
+    inputpilihan(&inputfromplayer);
     system("cls");
-    buatpapan(input);
+    buatpapan(inputfromplayer);
     do{
-        if(player==3){
-            player=1;
+        if(giliranplayer==3){
+            giliranplayer=1;
         }
-        inputkoordinat(nama1,nama2,player,input);
+        inputkoordinat(giliranplayer,inputfromplayer);
         system("cls");
-        buatpapan(input);
-        i=cekpemenang(input);
-        if(i!=1){
-            i=cektempatkosong(input);
+        buatpapan(inputfromplayer);
+        cek=cekpemenang(inputfromplayer);
+        if(cek!=1){
+            cek=cektempatkosong(inputfromplayer);
         }
-        player++;   
-    }while(i==0);
+        giliranplayer++;   
+    }while(cek==0);
 
-    if(i==1){
-        cetaknamapemenang(nama1,nama2,player);
+    if(cek==1){
+        cetaknamapemenang(giliranplayer);
         tampilanakhir();
-        inputangka(&input);
-        if(input==1){
+        inputpilihan(&inputfromplayer);
+        if(inputfromplayer==1){
             system("cls");
             play();
         }
-        else if(input==2){
+        else if(inputfromplayer==2){
             system("cls");
             main();
         }
         
     }
-    else if(i==2){
+    else if(cek==2){
         cetakdraw();
         tampilanakhir();
-        inputangka(&input);
-        if(input==1){
+        inputpilihan(&inputfromplayer);
+        if(inputfromplayer==1){
             system("cls");
             play();
         }
-        else if(input==2){
+        else if(inputfromplayer==2){
             system("cls");
             main();
         }
     }
 }
-void buatpapan(int input){
-    if(input==1){
+void buatpapan(int pilihpapan){
+    if(pilihpapan==1){
 		printf("\n                                     _____                            _        \n");     
 		printf("                                    / ____|                          | |      \n");       
 		printf("                                   | |  __  __ _ _ __ ___   ___ _ __ | | __ _ _   _ \n");
@@ -114,18 +112,18 @@ void buatpapan(int input){
         printf("________________________________________________________________________________________________________________________\n\n");
     	printf("                                              _____________________________\n");
         printf("                                             |         |         |         |\n");
-        printf("                                             |    %c    |    %c    |    %c    |\n", matrix[0][0], matrix[0][1], matrix[0][2]);
+        printf("                                             |    %c    |    %c    |    %c    |\n", brd.matrix[0][0], brd.matrix[0][1], brd.matrix[0][2]);
         printf("                                             |_________|_________|_________|\n");
         printf("                                             |         |         |         |\n");
-        printf("                                             |    %c    |    %c    |    %c    |\n", matrix[1][0], matrix[1][1], matrix[1][2]);
+        printf("                                             |    %c    |    %c    |    %c    |\n", brd.matrix[1][0], brd.matrix[1][1], brd.matrix[1][2]);
         printf("                                             |_________|_________|_________|\n");
         printf("                                             |         |         |         |\n");
-        printf("                                             |    %c    |    %c    |    %c    |\n", matrix[2][0], matrix[2][1], matrix[2][2]);
+        printf("                                             |    %c    |    %c    |    %c    |\n", brd.matrix[2][0], brd.matrix[2][1], brd.matrix[2][2]);
         printf("                                             |_________|_________|_________|\n");
     }
 
     
-    if (input==2){
+    if (pilihpapan==2){
     	printf("                                     _____                            _        \n");     
 		printf("                                    / ____|                          | |      \n");       
 		printf("                                   | |  __  __ _ _ __ ___   ___ _ __ | | __ _ _   _ \n");
@@ -138,49 +136,49 @@ void buatpapan(int input){
         printf("________________________________________________________________________________________________________________________\n\n");
     	printf("                                    __________________________________________________\n");
         printf("                                   |         |          |         |         |         |\n");
-        printf("                                   |    %c    |    %c     |    %c    |    %c    |    %c    |\n", matrix[0][0], matrix[0][1], matrix[0][2],matrix[0][3],matrix[0][4]);
+        printf("                                   |    %c    |    %c     |    %c    |    %c    |    %c    |\n", brd.matrix[0][0], brd.matrix[0][1], brd.matrix[0][2],brd.matrix[0][3],brd.matrix[0][4]);
         printf("                                   |_________|__________|_________|_________|_________|\n");
         printf("                                   |         |          |         |         |         |\n");
-        printf("                                   |    %c    |    %c     |    %c    |    %c    |    %c    |\n", matrix[1][0], matrix[1][1], matrix[1][2],matrix[1][3],matrix[1][4]);
+        printf("                                   |    %c    |    %c     |    %c    |    %c    |    %c    |\n", brd.matrix[1][0], brd.matrix[1][1], brd.matrix[1][2],brd.matrix[1][3],brd.matrix[1][4]);
         printf("                                   |_________|__________|_________|_________|_________|\n");
         printf("                                   |         |          |         |         |         |\n");
-        printf("                                   |    %c    |    %c     |    %c    |    %c    |    %c    |\n", matrix[2][0], matrix[2][1], matrix[2][2],matrix[2][3],matrix[2][4]);
+        printf("                                   |    %c    |    %c     |    %c    |    %c    |    %c    |\n", brd.matrix[2][0], brd.matrix[2][1], brd.matrix[2][2],brd.matrix[2][3],brd.matrix[2][4]);
         printf("                                   |_________|__________|_________|_________|_________|\n");
         printf("                                   |         |          |         |         |         |\n");
-        printf("                                   |    %c    |    %c     |    %c    |    %c    |    %c    |\n", matrix[3][0], matrix[3][1], matrix[3][2],matrix[3][3],matrix[3][4]);
+        printf("                                   |    %c    |    %c     |    %c    |    %c    |    %c    |\n", brd.matrix[3][0], brd.matrix[3][1], brd.matrix[3][2],brd.matrix[3][3],brd.matrix[3][4]);
         printf("                                   |_________|__________|_________|_________|_________|\n");
         printf("                                   |         |          |         |         |         |\n");
-        printf("                                   |    %c    |    %c     |    %c    |    %c    |    %c    |\n", matrix[4][0], matrix[4][1], matrix[4][2],matrix[4][3],matrix[4][4]);
+        printf("                                   |    %c    |    %c     |    %c    |    %c    |    %c    |\n", brd.matrix[4][0], brd.matrix[4][1], brd.matrix[4][2],brd.matrix[4][3],brd.matrix[4][4]);
         printf("                                   |_________|__________|_________|_________|_________|\n");
     }
 
 
-    if (input==3){
+    if (pilihpapan==3){
     	printf(" _____________________________________________________________________    |       _____                            \n");
         printf("|         |         |         |         |         |         |         |   |     / ____|                             \n");
-        printf("|    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |   |    | |  __  __ _ _ __ ___   ___         \n", matrix[0][0], matrix[0][1], matrix[0][2],matrix[0][3],matrix[0][4],matrix[0][5],matrix[0][6]);
+        printf("|    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |   |    | |  __  __ _ _ __ ___   ___         \n", brd.matrix[0][0], brd.matrix[0][1], brd.matrix[0][2],brd.matrix[0][3],brd.matrix[0][4],brd.matrix[0][5],brd.matrix[0][6]);
         printf("|_________|_________|_________|_________|_________|_________|_________|   |    | | |_ |/ _` | '_ ` _ \\ / _ \\     \n");
         printf("|         |         |         |         |         |         |         |   |    | |__| | (_| | | | | | |  __/        \n");
-		printf("|    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |   |     \\_____|\\__,_|_| |_| |_|\\___     \n", matrix[1][0], matrix[1][1], matrix[1][2],matrix[1][3],matrix[1][4],matrix[1][5],matrix[1][6]);
+		printf("|    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |   |     \\_____|\\__,_|_| |_| |_|\\___     \n", brd.matrix[1][0], brd.matrix[1][1], brd.matrix[1][2],brd.matrix[1][3],brd.matrix[1][4],brd.matrix[1][5],brd.matrix[1][6]);
         printf("|_________|_________|_________|_________|_________|_________|_________|   |\n");
         printf("|         |         |         |         |         |         |         |   |                           _ \n");
-		printf("|    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |   |                          | |\n", matrix[2][0], matrix[2][1], matrix[2][2],matrix[2][3],matrix[2][4],matrix[2][5],matrix[2][6]);
+		printf("|    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |   |                          | |\n", brd.matrix[2][0], brd.matrix[2][1], brd.matrix[2][2],brd.matrix[2][3],brd.matrix[2][4],brd.matrix[2][5],brd.matrix[2][6]);
         printf("|_________|_________|_________|_________|_________|_________|_________|   |                      ___ | | __ _ _   _\n");
         printf("|         |         |         |         |         |         |         |   |                     / _ \\| |/ _` | | | |\n");
-		printf("|    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |   |                    | |_) | | (_| | |_| |\n", matrix[3][0], matrix[3][1], matrix[3][2],matrix[3][3],matrix[3][4],matrix[3][5],matrix[3][6]);
+		printf("|    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |   |                    | |_) | | (_| | |_| |\n", brd.matrix[3][0], brd.matrix[3][1], brd.matrix[3][2],brd.matrix[3][3],brd.matrix[3][4],brd.matrix[3][5],brd.matrix[3][6]);
         printf("|_________|_________|_________|_________|_________|_________|_________|   |                    | .__/|_|\\__,_|\\__, |\n");
         printf("|         |         |         |         |         |         |         |   |                    | |             __/ |\n");
-		printf("|    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |   |                    |_|            |___/\n", matrix[4][0], matrix[4][1], matrix[4][2],matrix[4][3],matrix[4][4],matrix[4][5],matrix[4][6]);
+		printf("|    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |   |                    |_|            |___/\n", brd.matrix[4][0], brd.matrix[4][1], brd.matrix[4][2],brd.matrix[4][3],brd.matrix[4][4],brd.matrix[4][5],brd.matrix[4][6]);
         printf("|_________|_________|_________|_________|_________|_________|_________|   |\n");
         printf("|         |         |         |         |         |         |         |   |\n");
-		printf("|    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |   |\n", matrix[5][0], matrix[5][1], matrix[5][2],matrix[5][3],matrix[5][4],matrix[5][5],matrix[5][6]);
+		printf("|    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |   |\n", brd.matrix[5][0], brd.matrix[5][1], brd.matrix[5][2],brd.matrix[5][3],brd.matrix[5][4],brd.matrix[5][5],brd.matrix[5][6]);
         printf("|_________|_________|_________|_________|_________|_________|_________|   |\n");
         printf("|         |         |         |         |         |         |         |   |\n");
-		printf("|    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |   |\n", matrix[6][0], matrix[6][1], matrix[6][2],matrix[6][3],matrix[6][4],matrix[6][5],matrix[6][6]);
+		printf("|    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |    %c    |   |\n", brd.matrix[6][0], brd.matrix[6][1], brd.matrix[6][2],brd.matrix[6][3],brd.matrix[6][4],brd.matrix[6][5],brd.matrix[6][6]);
         printf("|_________|_________|_________|_________|_________|_________|_________|   |\n");
     }
 }
-void pilihpapan(){
+void displaypilihpapan(){
     printf("\n                _______   _    _______        _______   ______   ______        _______   ______   _______");
     printf("\n               |___ ___| | |  |  _____|      |___ ___| |  __  | |  ____|      |___ ___| |  __  | |  _____|");
     printf("\n                  | |    | |  | |               | |    | |__| | | |              | |    | |  | | | |_____");
@@ -200,322 +198,321 @@ void pilihpapan(){
     printf("\n                                             |__________________________________|\n\n");
     printf("\n                                                 Input Angka Anda: "); 	
 }
-void inputkoordinat(char nama1[20],char nama2[20],int player,int input){
-    int x,y;
-    if(player==1&&input==1){
-        smb.simbol='X';
+void inputkoordinat(int giliran,int ukuran_papan){
+    if(giliran==1&&ukuran_papan==1){
+        brd.simbol='X';
         printf("                                  __________________________________________________________ \n");
-        printf("                                        %s Tolong Input Koordinat baris dan kolom:",nama1);
-        scanf("\n%d %d",&x,&y);
-         while(matrix[x][y]!=' '||x>2||y>2){
+        printf("                                        %s Tolong Input Koordinat baris dan kolom:",ply[0].nama);
+        scanf("\n%d %d",&koor.x,&koor.y);
+        while(brd.matrix[koor.x][koor.y]!=' '||koor.x>2||koor.y>2){
             printf("                                  __________________________________________________________ \n");
         	printf("                                        Input tidak valid silahkan coba lagi:");
-            scanf("\n%d %d",&x,&y);
+            scanf("\n%d %d",&koor.x,&koor.y);
         }
-         if (matrix[x][y]==' '){
-            matrix[x][y]=smb.simbol;
+         if (brd.matrix[koor.x][koor.y]==' '){
+            brd.matrix[koor.x][koor.y]=brd.simbol;
         }
     }
-    else if(player==2&&input==1){
-        smb.simbol='O';
+    else if(giliran==2&&ukuran_papan==1){
+        brd.simbol='O';
         printf("                                  __________________________________________________________ \n");
-        printf("                                        %s Tolong Input Koordinat baris dan kolom:",nama2);
-            scanf("\n%d %d",&x,&y);
-            while(matrix[x][y]!=' '||x>2||y>2){
+        printf("                                        %s Tolong Input Koordinat baris dan kolom:",ply[1].nama);
+            scanf("\n%d %d",&koor.x,&koor.y);
+            while(brd.matrix[koor.x][koor.y]!=' '||koor.x>2||koor.y>2){
             	printf("                                  __________________________________________________________ \n");
             	printf("                                        Input tidak valid silahkan coba lagi:");
-                scanf("\n%d %d",&x,&y);
+                scanf("\n%d %d",&koor.x,&koor.y);
             }
-            if (matrix[x][y]==' '){
-                matrix[x][y]=smb.simbol;
+            if (brd.matrix[koor.x][koor.y]==' '){
+                brd.matrix[koor.x][koor.y]=brd.simbol;
             }
         }
-    if(player==1&&input==2){
-        smb.simbol='X';
+    if(giliran==1&&ukuran_papan==2){
+        brd.simbol='X';
         printf("                                  __________________________________________________________ \n");
-        printf("                                        %s Tolong Input Koordinat baris dan kolom:",nama1);
-        scanf("\n%d %d",&x,&y);
-         while(matrix[x][y]!=' '||x>4||y>4){
+        printf("                                        %s Tolong Input Koordinat baris dan kolom:",ply[0].nama);
+        scanf("\n%d %d",&koor.x,&koor.y);
+         while(brd.matrix[koor.x][koor.y]!=' '||koor.x>4||koor.y>4){
             printf("                                  __________________________________________________________ \n");
             printf("                                        Input tidak valid silahkan coba lagi:");
-            scanf("\n%d %d",&x,&y);
+            scanf("\n%d %d",&koor.x,&koor.y);
         }
-         if (matrix[x][y]==' '){
-            matrix[x][y]=smb.simbol;
+         if (brd.matrix[koor.x][koor.y]==' '){
+            brd.matrix[koor.x][koor.y]=brd.simbol;
         }
     }
-    else if(player==2&&input==2){
-        smb.simbol='O';
+    else if(giliran==2&&ukuran_papan==2){
+        brd.simbol='O';
         printf("                                  __________________________________________________________ \n");
-        printf("                                        %s Tolong Input Koordinat baris dan kolom:",nama2);
-            scanf("\n%d %d",&x,&y);
-            while(matrix[x][y]!=' '||x>4||y>4){
+        printf("                                        %s Tolong Input Koordinat baris dan kolom:",ply[1].nama);
+            scanf("\n%d %d",&koor.x,&koor.y);
+            while(brd.matrix[koor.x][koor.y]!=' '||koor.x>4||koor.y>4){
                 printf("                                  __________________________________________________________ \n");
             	printf("                                        Input tidak valid silahkan coba lagi:");
-                scanf("\n%d %d",&x,&y);
+                scanf("\n%d %d",&koor.x,&koor.y);
             }
-            if (matrix[x][y]==' '){
-                matrix[x][y]=smb.simbol;
+            if (brd.matrix[koor.x][koor.y]==' '){
+                brd.matrix[koor.x][koor.y]=brd.simbol;
             }
         }
-    if(player==1&&input==3){
-        smb.simbol='X';
+    if(giliran==1&&ukuran_papan==3){
+        brd.simbol='X';
         printf("                                  __________________________________________________________ \n");
-        printf("                                        %s Tolong Input Koordinat baris dan kolom:",nama1);
-        scanf("\n%d %d",&x,&y);
-         while(matrix[x][y]!=' '||x>6||y>6){
+        printf("                                        %s Tolong Input Koordinat baris dan kolom:",ply[0].nama);
+        scanf("\n%d %d",&koor.x,&koor.y);
+         while(brd.matrix[koor.x][koor.y]!=' '||koor.x>6||koor.y>6){
             printf("                                  __________________________________________________________ \n");
             printf("                                        Input tidak valid silahkan coba lagi:");
-            scanf("\n%d %d",&x,&y);
+            scanf("\n%d %d",&koor.x,&koor.y);
         }
-         if (matrix[x][y]==' '){
-            matrix[x][y]=smb.simbol;
+         if (brd.matrix[koor.x][koor.y]==' '){
+            brd.matrix[koor.x][koor.y]=brd.simbol;
         }
     }
-    else if(player==2&&input==3){
-        smb.simbol='O';
+    else if(giliran==2&&ukuran_papan==3){
+        brd.simbol='O';
         printf("                                  __________________________________________________________ \n");
-        printf("                                        %s Tolong Input Koordinat baris dan kolom:",nama2);
-            scanf("\n%d %d",&x,&y);
-            while(matrix[x][y]!=' '||x>6||y>6){
+        printf("                                        %s Tolong Input Koordinat baris dan kolom:",ply[1].nama);
+            scanf("\n%d %d",&koor.x,&koor.y);
+            while(brd.matrix[koor.x][koor.y]!=' '||koor.x>6||koor.y>6){
 		        printf("                                  __________________________________________________________ \n");
             	printf("                                        Input tidak valid silahkan coba lagi:");
-                scanf("\n%d %d",&x,&y);
+                scanf("\n%d %d",&koor.x,&koor.y);
             }
-            if (matrix[x][y]==' '){
-                matrix[x][y]=smb.simbol;
+            if (brd.matrix[koor.x][koor.y]==' '){
+                brd.matrix[koor.x][koor.y]=brd.simbol;
             }
         }
     
 }
-int cekpemenang(int input){
-    int i,j=0;
+int cekpemenang(int ukuran_papan){
+    int i,cek=0;
     //Cek Pemenang 3x3
 	//Cek baris
-    if(input==1){
+    if(ukuran_papan==1){
 	for(i=0;i<3;i++){
-		if((matrix[i][0]==matrix[i][1]&&matrix[i][0]==matrix[i][2])&&(matrix[i][0]!=' ')){	
-		j=1;
+		if((brd.matrix[i][0]==brd.matrix[i][1]&&brd.matrix[i][0]==brd.matrix[i][2])&&(brd.matrix[i][0]!=' ')){	
+		cek=1;
         }
     }
 	//Cek kolom
 	for(i=0;i<3;i++){
-		if((matrix[0][i]==matrix[1][i]&&matrix[0][i]==matrix[2][i])&&(matrix[0][i]!=' ')){		
-		j=1;
+		if((brd.matrix[0][i]==brd.matrix[1][i]&&brd.matrix[0][i]==brd.matrix[2][i])&&(brd.matrix[0][i]!=' ')){		
+		cek=1;
         }
     }
 	//Cek Diagonal
-	if((matrix[0][0]==matrix[1][1]&&matrix[0][0]==matrix[2][2])&&(matrix[0][0]!=' ')){								
-		j=1;
+	if((brd.matrix[0][0]==brd.matrix[1][1]&&brd.matrix[0][0]==brd.matrix[2][2])&&(brd.matrix[0][0]!=' ')){								
+		cek=1;
     }
-	if((matrix[0][2]==matrix[1][1]&&matrix[0][2]==matrix[2][0])&&(matrix[0][2]!=' ')){								
-        j=1;
+	if((brd.matrix[0][2]==brd.matrix[1][1]&&brd.matrix[0][2]==brd.matrix[2][0])&&(brd.matrix[0][2]!=' ')){								
+        cek=1;
     }
     }
 
     //Cek pemenang 5x5
-    if(input==2){
+    if(ukuran_papan==2){
     //Cek baris
     for(i=0; i<5; i++){
-                if(matrix[i][0]==matrix[i][1] && matrix[i][0]==matrix[i][2] && matrix[i][0]==matrix[i][3] && matrix[i][0]!=' ' && matrix[i][1]!=0 && matrix[i][2] != ' ' && matrix[i][3] != ' '){
-                    j=1;
+                if(brd.matrix[i][0]==brd.matrix[i][1] && brd.matrix[i][0]==brd.matrix[i][2] && brd.matrix[i][0]==brd.matrix[i][3] && brd.matrix[i][0]!=' ' && brd.matrix[i][1]!=0 && brd.matrix[i][2] != ' ' && brd.matrix[i][3] != ' '){
+                    cek=1;
 
                 }
-                else if(matrix[i][1]==matrix[i][2] && matrix[i][1]==matrix[i][3] && matrix[i][1]==matrix[i][4] && matrix[i][1]!=' ' && matrix[i][2] != ' ' && matrix[i][3] != ' ' && matrix[i][4]!=' '){
-                    j=1;
+                else if(brd.matrix[i][1]==brd.matrix[i][2] && brd.matrix[i][1]==brd.matrix[i][3] && brd.matrix[i][1]==brd.matrix[i][4] && brd.matrix[i][1]!=' ' && brd.matrix[i][2] != ' ' && brd.matrix[i][3] != ' ' && brd.matrix[i][4]!=' '){
+                    cek=1;
                 }
     }
     //Cek Kolom
     for(i=0; i<5; i++){
-                if(matrix[0][i]==matrix[1][i] && matrix[0][i]==matrix[2][i] && matrix[0][i]==matrix[3][i] && matrix[0][i] !=' ' && matrix[1][i] != ' ' &&matrix[2][i] != ' ' && matrix[3][i]!=' '){
-                    j=1;
+                if(brd.matrix[0][i]==brd.matrix[1][i] && brd.matrix[0][i]==brd.matrix[2][i] && brd.matrix[0][i]==brd.matrix[3][i] && brd.matrix[0][i] !=' ' && brd.matrix[1][i] != ' ' &&brd.matrix[2][i] != ' ' && brd.matrix[3][i]!=' '){
+                    cek=1;
                 }
-                else if(matrix[1][i]==matrix[2][i] && matrix[1][i]==matrix[3][i] && matrix[1][i]==matrix[4][i] && matrix[1][i] != ' ' &&matrix[2][i] != ' ' && matrix[3][i]!=' ' && matrix[4][i] != ' '){
-                    j=1;
+                else if(brd.matrix[1][i]==brd.matrix[2][i] && brd.matrix[1][i]==brd.matrix[3][i] && brd.matrix[1][i]==brd.matrix[4][i] && brd.matrix[1][i] != ' ' &&brd.matrix[2][i] != ' ' && brd.matrix[3][i]!=' ' && brd.matrix[4][i] != ' '){
+                    cek=1;
                 }
     }
     //Cek Diagonal
-        if(matrix[0][0]==matrix[1][1] && matrix[0][0]==matrix[2][2] && matrix[0][0]==matrix[3][3] && matrix[0][0] != ' ' && matrix[1][1] != ' ' && matrix[2][2] != ' ' && matrix[3][3] != ' '){
-                j=1;
+        if(brd.matrix[0][0]==brd.matrix[1][1] && brd.matrix[0][0]==brd.matrix[2][2] && brd.matrix[0][0]==brd.matrix[3][3] && brd.matrix[0][0] != ' ' && brd.matrix[1][1] != ' ' && brd.matrix[2][2] != ' ' && brd.matrix[3][3] != ' '){
+                cek=1;
             }
-            else if(matrix[1][1]==matrix[2][2] && matrix[1][1]==matrix[3][3] && matrix[1][1]==matrix[4][4] && matrix[1][1] != ' ' && matrix[2][2] != ' ' && matrix[3][3] != ' ' && matrix[4][4] != ' '){
-                j=1;
+            else if(brd.matrix[1][1]==brd.matrix[2][2] && brd.matrix[1][1]==brd.matrix[3][3] && brd.matrix[1][1]==brd.matrix[4][4] && brd.matrix[1][1] != ' ' && brd.matrix[2][2] != ' ' && brd.matrix[3][3] != ' ' && brd.matrix[4][4] != ' '){
+                cek=1;
             }
-            else if(matrix[0][1]==matrix[1][2] && matrix[0][1]==matrix[2][3] && matrix[0][1]==matrix[3][4] && matrix[0][1] != ' ' && matrix[1][2] != ' ' && matrix[2][3] != ' ' && matrix[3][4] != ' '){
-                j=1;
+            else if(brd.matrix[0][1]==brd.matrix[1][2] && brd.matrix[0][1]==brd.matrix[2][3] && brd.matrix[0][1]==brd.matrix[3][4] && brd.matrix[0][1] != ' ' && brd.matrix[1][2] != ' ' && brd.matrix[2][3] != ' ' && brd.matrix[3][4] != ' '){
+                cek=1;
             }
-            else if(matrix[1][0]==matrix[2][1] && matrix[1][0]==matrix[3][2] && matrix[1][0]==matrix[4][3] && matrix[1][0] != ' ' && matrix[2][1] != ' ' && matrix[3][2] != ' ' && matrix[4][3] != ' '){
-                j=1;
+            else if(brd.matrix[1][0]==brd.matrix[2][1] && brd.matrix[1][0]==brd.matrix[3][2] && brd.matrix[1][0]==brd.matrix[4][3] && brd.matrix[1][0] != ' ' && brd.matrix[2][1] != ' ' && brd.matrix[3][2] != ' ' && brd.matrix[4][3] != ' '){
+                cek=1;
             }
-            else if(matrix[0][4]==matrix[1][3] && matrix[0][4]==matrix[2][2] && matrix[0][4]==matrix[3][1] && matrix[0][4] != ' ' && matrix[1][3] != ' ' && matrix[2][2] != ' ' && matrix[3][1] != ' '){
-                j=1;
+            else if(brd.matrix[0][4]==brd.matrix[1][3] && brd.matrix[0][4]==brd.matrix[2][2] && brd.matrix[0][4]==brd.matrix[3][1] && brd.matrix[0][4] != ' ' && brd.matrix[1][3] != ' ' && brd.matrix[2][2] != ' ' && brd.matrix[3][1] != ' '){
+                cek=1;
             }
-            else if(matrix[1][3]==matrix[2][2] && matrix[1][3]==matrix[3][1] && matrix[1][3]==matrix[4][0] && matrix[1][3] != ' ' && matrix[2][2] != ' ' && matrix[3][1] != ' ' && matrix[4][0] != ' '){
-                j=1;
+            else if(brd.matrix[1][3]==brd.matrix[2][2] && brd.matrix[1][3]==brd.matrix[3][1] && brd.matrix[1][3]==brd.matrix[4][0] && brd.matrix[1][3] != ' ' && brd.matrix[2][2] != ' ' && brd.matrix[3][1] != ' ' && brd.matrix[4][0] != ' '){
+                cek=1;
             }
-            else if(matrix[1][4]==matrix[2][3] && matrix[1][4]==matrix[3][2] && matrix[1][4]==matrix[4][1] && matrix[0][0] != ' ' && matrix[4][1] != ' ' && matrix[2][3] != ' ' && matrix[3][2] != ' '){
-                j=1;
+            else if(brd.matrix[1][4]==brd.matrix[2][3] && brd.matrix[1][4]==brd.matrix[3][2] && brd.matrix[1][4]==brd.matrix[4][1] && brd.matrix[0][0] != ' ' && brd.matrix[4][1] != ' ' && brd.matrix[2][3] != ' ' && brd.matrix[3][2] != ' '){
+                cek=1;
             }
-            else if(matrix[0][3]==matrix[1][2] && matrix[0][3]==matrix[2][1] && matrix[0][3]==matrix[3][0] && matrix[0][3] != ' ' && matrix[1][2] != ' ' && matrix[2][1] != ' ' && matrix[3][0] != ' '){
-                j=1;
+            else if(brd.matrix[0][3]==brd.matrix[1][2] && brd.matrix[0][3]==brd.matrix[2][1] && brd.matrix[0][3]==brd.matrix[3][0] && brd.matrix[0][3] != ' ' && brd.matrix[1][2] != ' ' && brd.matrix[2][1] != ' ' && brd.matrix[3][0] != ' '){
+                cek=1;
             }
     }
     //Cek Pemenang 7x7
-    if (input==3){
+    if (ukuran_papan==3){
         //Cek baris
         for(i=0; i<7; i++){
-                    if(matrix[i][0]==matrix[i][1] && matrix[i][1]==matrix[i][2] && matrix[i][2]==matrix[i][3] && matrix[i][0]!=' ' && matrix[i][1]!=' ' && matrix[i][2]!=' ' && matrix[i][3]!=' '){
-                        j=1;
+                    if(brd.matrix[i][0]==brd.matrix[i][1] && brd.matrix[i][1]==brd.matrix[i][2] && brd.matrix[i][2]==brd.matrix[i][3] && brd.matrix[i][0]!=' ' && brd.matrix[i][1]!=' ' && brd.matrix[i][2]!=' ' && brd.matrix[i][3]!=' '){
+                        cek=1;
                     }
-                    else if(matrix[i][1]==matrix[i][2] && matrix[i][2]==matrix[i][3]&& matrix[i][3]==matrix[i][4] && matrix[i][1]!=' ' && matrix[i][2]!=' ' && matrix[i][3]!=' ' && matrix[i][4]!=' '){
-                        j=1;
+                    else if(brd.matrix[i][1]==brd.matrix[i][2] && brd.matrix[i][2]==brd.matrix[i][3]&& brd.matrix[i][3]==brd.matrix[i][4] && brd.matrix[i][1]!=' ' && brd.matrix[i][2]!=' ' && brd.matrix[i][3]!=' ' && brd.matrix[i][4]!=' '){
+                        cek=1;
                     }
-                    else if(matrix[i][2]==matrix[i][3] && matrix[i][3]==matrix[i][4]&& matrix[i][4]==matrix[i][5] && matrix[i][2]!=' ' && matrix[i][3]!=' ' && matrix[i][4]!=' ' && matrix[i][5]!=' '){
-                        j=1;
+                    else if(brd.matrix[i][2]==brd.matrix[i][3] && brd.matrix[i][3]==brd.matrix[i][4]&& brd.matrix[i][4]==brd.matrix[i][5] && brd.matrix[i][2]!=' ' && brd.matrix[i][3]!=' ' && brd.matrix[i][4]!=' ' && brd.matrix[i][5]!=' '){
+                        cek=1;
                     }
-                    else if(matrix[i][3]==matrix[i][4] && matrix[i][4]==matrix[i][5]&& matrix[i][5]==matrix[i][6] && matrix[i][3]!=' ' && matrix[i][4]!=' ' && matrix[i][5]!=' ' && matrix[i][6]!=' '){
-                        j=1;
+                    else if(brd.matrix[i][3]==brd.matrix[i][4] && brd.matrix[i][4]==brd.matrix[i][5]&& brd.matrix[i][5]==brd.matrix[i][6] && brd.matrix[i][3]!=' ' && brd.matrix[i][4]!=' ' && brd.matrix[i][5]!=' ' && brd.matrix[i][6]!=' '){
+                        cek=1;
                     }
                 }
                 //Cek Kolom
                 for(i=0; i<7; i++){
-                    if(matrix[0][i]==matrix[1][i] && matrix[1][i]==matrix[2][i] && matrix[2][i]==matrix[3][i] && matrix[0][i]!=' ' && matrix[1][i]!=' ' && matrix[2][i]!=' ' && matrix[3][i]!=' ' ){
-                        j=1;
+                    if(brd.matrix[0][i]==brd.matrix[1][i] && brd.matrix[1][i]==brd.matrix[2][i] && brd.matrix[2][i]==brd.matrix[3][i] && brd.matrix[0][i]!=' ' && brd.matrix[1][i]!=' ' && brd.matrix[2][i]!=' ' && brd.matrix[3][i]!=' ' ){
+                        cek=1;
                     }
-                    else if(matrix[1][i]==matrix[2][i] && matrix[2][i]==matrix[3][i] && matrix[3][i]==matrix[4][i] && matrix[1][i]!=' ' && matrix[2][i]!=' ' && matrix[3][i]!=' ' && matrix[4][i]!=' '){
-                        j=1;
+                    else if(brd.matrix[1][i]==brd.matrix[2][i] && brd.matrix[2][i]==brd.matrix[3][i] && brd.matrix[3][i]==brd.matrix[4][i] && brd.matrix[1][i]!=' ' && brd.matrix[2][i]!=' ' && brd.matrix[3][i]!=' ' && brd.matrix[4][i]!=' '){
+                        cek=1;
                     }
-                    else if(matrix[2][i]==matrix[3][i] && matrix[3][i]==matrix[4][i] && matrix[4][i]==matrix[5][i] && matrix[2][i]!=' ' && matrix[3][i]!=' ' && matrix[4][i]!=' ' && matrix[5][i]!=' '){
-                        j=1;
+                    else if(brd.matrix[2][i]==brd.matrix[3][i] && brd.matrix[3][i]==brd.matrix[4][i] && brd.matrix[4][i]==brd.matrix[5][i] && brd.matrix[2][i]!=' ' && brd.matrix[3][i]!=' ' && brd.matrix[4][i]!=' ' && brd.matrix[5][i]!=' '){
+                        cek=1;
                     }
-                    else if(matrix[3][i]==matrix[4][i] && matrix[4][i]==matrix[5][i] && matrix[5][i]==matrix[6][i] && matrix[3][i]!=' ' && matrix[4][i]!=' ' && matrix[5][i]!=' ' && matrix[6][i]!=' '){
-                        j=1;
+                    else if(brd.matrix[3][i]==brd.matrix[4][i] && brd.matrix[4][i]==brd.matrix[5][i] && brd.matrix[5][i]==brd.matrix[6][i] && brd.matrix[3][i]!=' ' && brd.matrix[4][i]!=' ' && brd.matrix[5][i]!=' ' && brd.matrix[6][i]!=' '){
+                        cek=1;
                     }
                 }
                 //Cek diagonal
-                if(matrix[0][0]==matrix[1][1] && matrix[1][1]==matrix[2][2] && matrix[2][2]==matrix[3][3] && matrix[0][0] != ' ' && matrix[1][1] != ' ' && matrix[2][2] != ' ' &&matrix[3][3] != ' '){
-                    j=1;
+                if(brd.matrix[0][0]==brd.matrix[1][1] && brd.matrix[1][1]==brd.matrix[2][2] && brd.matrix[2][2]==brd.matrix[3][3] && brd.matrix[0][0] != ' ' && brd.matrix[1][1] != ' ' && brd.matrix[2][2] != ' ' &&brd.matrix[3][3] != ' '){
+                    cek=1;
                 }
-                else if(matrix[1][1]==matrix[2][2] && matrix[2][2]==matrix[3][3] && matrix[3][3]==matrix[4][4] && matrix[1][1] != ' ' && matrix[2][2] != ' ' && matrix[3][3] != ' ' && matrix[4][4] != ' '){
-                    j=1;
+                else if(brd.matrix[1][1]==brd.matrix[2][2] && brd.matrix[2][2]==brd.matrix[3][3] && brd.matrix[3][3]==brd.matrix[4][4] && brd.matrix[1][1] != ' ' && brd.matrix[2][2] != ' ' && brd.matrix[3][3] != ' ' && brd.matrix[4][4] != ' '){
+                    cek=1;
                 }
-                else if(matrix[2][2]==matrix[3][3] && matrix[3][3]==matrix[4][4] && matrix[4][4]==matrix[5][5] && matrix[2][2] != ' ' && matrix[3][3] != ' ' && matrix[4][4] != ' ' && matrix[5][5] != ' '){
-                    j=1;
+                else if(brd.matrix[2][2]==brd.matrix[3][3] && brd.matrix[3][3]==brd.matrix[4][4] && brd.matrix[4][4]==brd.matrix[5][5] && brd.matrix[2][2] != ' ' && brd.matrix[3][3] != ' ' && brd.matrix[4][4] != ' ' && brd.matrix[5][5] != ' '){
+                    cek=1;
                 }
-                else if(matrix[3][3]==matrix[4][4] && matrix[4][4]==matrix[5][5] && matrix[5][5]==matrix[6][6] && matrix[3][3] != ' ' && matrix[4][4] != ' ' && matrix[5][5] != ' ' && matrix[6][6] != ' '){
-                    j=1;
+                else if(brd.matrix[3][3]==brd.matrix[4][4] && brd.matrix[4][4]==brd.matrix[5][5] && brd.matrix[5][5]==brd.matrix[6][6] && brd.matrix[3][3] != ' ' && brd.matrix[4][4] != ' ' && brd.matrix[5][5] != ' ' && brd.matrix[6][6] != ' '){
+                    cek=1;
                 }
-                else if(matrix[0][3]==matrix[1][2] && matrix[1][2]==matrix[2][1] && matrix[2][1]==matrix[3][0] && matrix[2][1] != ' ' && matrix[1][2] != ' ' && matrix[2][1] != ' ' && matrix[3][0] != ' '){
-                    j=1; 
+                else if(brd.matrix[0][3]==brd.matrix[1][2] && brd.matrix[1][2]==brd.matrix[2][1] && brd.matrix[2][1]==brd.matrix[3][0] && brd.matrix[2][1] != ' ' && brd.matrix[1][2] != ' ' && brd.matrix[2][1] != ' ' && brd.matrix[3][0] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[0][4]==matrix[1][3] && matrix[1][3]==matrix[2][2] && matrix[2][2]==matrix[3][1] && matrix[0][4] != ' ' && matrix[1][3] != ' ' && matrix[2][2] != ' ' && matrix[3][1] != ' '){
-                    j=1; 
+                else if(brd.matrix[0][4]==brd.matrix[1][3] && brd.matrix[1][3]==brd.matrix[2][2] && brd.matrix[2][2]==brd.matrix[3][1] && brd.matrix[0][4] != ' ' && brd.matrix[1][3] != ' ' && brd.matrix[2][2] != ' ' && brd.matrix[3][1] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[0][5]==matrix[1][4] && matrix[1][4]==matrix[2][3] && matrix[2][3]==matrix[3][2] && matrix[0][5] != ' ' && matrix[1][4] != ' ' && matrix[2][3] != ' ' && matrix[3][2] != ' '){
-                    j=1; 
+                else if(brd.matrix[0][5]==brd.matrix[1][4] && brd.matrix[1][4]==brd.matrix[2][3] && brd.matrix[2][3]==brd.matrix[3][2] && brd.matrix[0][5] != ' ' && brd.matrix[1][4] != ' ' && brd.matrix[2][3] != ' ' && brd.matrix[3][2] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[0][6]==matrix[1][5] && matrix[1][5]==matrix[2][4] && matrix[2][4]==matrix[3][3] && matrix[0][6] != ' ' && matrix[1][5] != ' ' && matrix[2][4] != ' ' && matrix[3][3] != ' '){
-                    j=1; 
+                else if(brd.matrix[0][6]==brd.matrix[1][5] && brd.matrix[1][5]==brd.matrix[2][4] && brd.matrix[2][4]==brd.matrix[3][3] && brd.matrix[0][6] != ' ' && brd.matrix[1][5] != ' ' && brd.matrix[2][4] != ' ' && brd.matrix[3][3] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[1][6]==matrix[2][5] && matrix[2][5]==matrix[3][4] && matrix[3][4]==matrix[4][3] && matrix[1][6] != ' ' && matrix[2][5] != ' ' && matrix[3][4] != ' ' && matrix[4][3] != ' '){
-                    j=1; 
+                else if(brd.matrix[1][6]==brd.matrix[2][5] && brd.matrix[2][5]==brd.matrix[3][4] && brd.matrix[3][4]==brd.matrix[4][3] && brd.matrix[1][6] != ' ' && brd.matrix[2][5] != ' ' && brd.matrix[3][4] != ' ' && brd.matrix[4][3] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[2][6]==matrix[3][5] && matrix[3][5]==matrix[4][4] && matrix[4][4]==matrix[5][3] && matrix[2][6] != ' ' && matrix[3][5] != ' ' && matrix[4][4] != ' ' && matrix[5][3] != ' '){
-                    j=1; 
+                else if(brd.matrix[2][6]==brd.matrix[3][5] && brd.matrix[3][5]==brd.matrix[4][4] && brd.matrix[4][4]==brd.matrix[5][3] && brd.matrix[2][6] != ' ' && brd.matrix[3][5] != ' ' && brd.matrix[4][4] != ' ' && brd.matrix[5][3] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[3][6]==matrix[4][5] && matrix[4][5]==matrix[5][4] && matrix[5][4]==matrix[6][3] && matrix[3][6] != ' ' && matrix[4][5] != ' ' && matrix[5][4] != ' ' && matrix[6][3] != ' '){
-                    j=1; 
+                else if(brd.matrix[3][6]==brd.matrix[4][5] && brd.matrix[4][5]==brd.matrix[5][4] && brd.matrix[5][4]==brd.matrix[6][3] && brd.matrix[3][6] != ' ' && brd.matrix[4][5] != ' ' && brd.matrix[5][4] != ' ' && brd.matrix[6][3] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[1][4]==matrix[2][3] && matrix[2][3]==matrix[3][2] && matrix[3][2]==matrix[4][1] && matrix[1][4] != ' ' && matrix[2][3] != ' ' && matrix[3][2] != ' ' && matrix[4][1] != ' '){
-                    j=1; 
+                else if(brd.matrix[1][4]==brd.matrix[2][3] && brd.matrix[2][3]==brd.matrix[3][2] && brd.matrix[3][2]==brd.matrix[4][1] && brd.matrix[1][4] != ' ' && brd.matrix[2][3] != ' ' && brd.matrix[3][2] != ' ' && brd.matrix[4][1] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[2][4]==matrix[3][3] && matrix[3][3]==matrix[4][2] && matrix[4][2]==matrix[5][1] && matrix[2][4] != ' ' && matrix[3][3] != ' ' && matrix[4][2] != ' ' && matrix[5][1] != ' '){
-                    j=1; 
+                else if(brd.matrix[2][4]==brd.matrix[3][3] && brd.matrix[3][3]==brd.matrix[4][2] && brd.matrix[4][2]==brd.matrix[5][1] && brd.matrix[2][4] != ' ' && brd.matrix[3][3] != ' ' && brd.matrix[4][2] != ' ' && brd.matrix[5][1] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[2][5]==matrix[3][4] && matrix[3][4]==matrix[4][3] && matrix[4][3]==matrix[5][2] && matrix[2][5] != ' ' && matrix[3][4] != ' ' && matrix[4][3] != ' ' && matrix[5][2] != ' '){
-                    j=1; 
+                else if(brd.matrix[2][5]==brd.matrix[3][4] && brd.matrix[3][4]==brd.matrix[4][3] && brd.matrix[4][3]==brd.matrix[5][2] && brd.matrix[2][5] != ' ' && brd.matrix[3][4] != ' ' && brd.matrix[4][3] != ' ' && brd.matrix[5][2] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[1][5]==matrix[2][4] && matrix[2][4]==matrix[3][3] && matrix[3][3]==matrix[4][2] && matrix[1][5] != ' ' && matrix[2][4] != ' ' && matrix[3][3] != ' ' && matrix[4][2] != ' '){
-                    j=1; 
+                else if(brd.matrix[1][5]==brd.matrix[2][4] && brd.matrix[2][4]==brd.matrix[3][3] && brd.matrix[3][3]==brd.matrix[4][2] && brd.matrix[1][5] != ' ' && brd.matrix[2][4] != ' ' && brd.matrix[3][3] != ' ' && brd.matrix[4][2] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[1][3]==matrix[2][2] && matrix[2][2]==matrix[3][1] && matrix[3][1]==matrix[4][0] && matrix[1][3] != ' ' && matrix[2][2] != ' ' && matrix[3][1] != ' ' && matrix[4][0] != ' '){
-                    j=1; 
+                else if(brd.matrix[1][3]==brd.matrix[2][2] && brd.matrix[2][2]==brd.matrix[3][1] && brd.matrix[3][1]==brd.matrix[4][0] && brd.matrix[1][3] != ' ' && brd.matrix[2][2] != ' ' && brd.matrix[3][1] != ' ' && brd.matrix[4][0] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[2][3]==matrix[3][2] && matrix[3][2]==matrix[4][1] && matrix[4][1]==matrix[5][0] && matrix[2][3] != ' ' && matrix[3][2] != ' ' && matrix[4][1] != ' ' && matrix[5][0] != ' '){
-                    j=1; 
+                else if(brd.matrix[2][3]==brd.matrix[3][2] && brd.matrix[3][2]==brd.matrix[4][1] && brd.matrix[4][1]==brd.matrix[5][0] && brd.matrix[2][3] != ' ' && brd.matrix[3][2] != ' ' && brd.matrix[4][1] != ' ' && brd.matrix[5][0] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[3][3]==matrix[4][2] && matrix[4][2]==matrix[5][1] && matrix[5][1]==matrix[6][0] && matrix[3][3] != ' ' && matrix[4][2] != ' ' && matrix[5][1] != ' ' && matrix[6][0] != ' '){
-                    j=1; 
+                else if(brd.matrix[3][3]==brd.matrix[4][2] && brd.matrix[4][2]==brd.matrix[5][1] && brd.matrix[5][1]==brd.matrix[6][0] && brd.matrix[3][3] != ' ' && brd.matrix[4][2] != ' ' && brd.matrix[5][1] != ' ' && brd.matrix[6][0] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[3][4]==matrix[4][3] && matrix[4][3]==matrix[5][2] && matrix[5][2]==matrix[6][1] && matrix[3][4] != ' ' && matrix[4][3] != ' ' && matrix[5][2] != ' ' && matrix[6][1] != ' '){
-                    j=1; 
+                else if(brd.matrix[3][4]==brd.matrix[4][3] && brd.matrix[4][3]==brd.matrix[5][2] && brd.matrix[5][2]==brd.matrix[6][1] && brd.matrix[3][4] != ' ' && brd.matrix[4][3] != ' ' && brd.matrix[5][2] != ' ' && brd.matrix[6][1] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[3][5]==matrix[4][4] && matrix[4][4]==matrix[5][3] && matrix[5][3]==matrix[6][2] && matrix[3][5] != ' ' && matrix[4][4] != ' ' && matrix[5][3] != ' ' && matrix[6][2] != ' '){
-                    j=1; 
+                else if(brd.matrix[3][5]==brd.matrix[4][4] && brd.matrix[4][4]==brd.matrix[5][3] && brd.matrix[5][3]==brd.matrix[6][2] && brd.matrix[3][5] != ' ' && brd.matrix[4][4] != ' ' && brd.matrix[5][3] != ' ' && brd.matrix[6][2] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[0][3]==matrix[1][4] && matrix[1][4]==matrix[2][5] && matrix[2][5]==matrix[3][6] && matrix[0][3] != ' ' && matrix[1][4] != ' ' && matrix[2][5] != ' ' && matrix[3][6] != ' '){
-                    j=1; 
+                else if(brd.matrix[0][3]==brd.matrix[1][4] && brd.matrix[1][4]==brd.matrix[2][5] && brd.matrix[2][5]==brd.matrix[3][6] && brd.matrix[0][3] != ' ' && brd.matrix[1][4] != ' ' && brd.matrix[2][5] != ' ' && brd.matrix[3][6] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[1][3]==matrix[2][4] && matrix[2][4]==matrix[3][5] && matrix[3][5]==matrix[4][6] && matrix[3][1] != ' ' && matrix[2][4] != ' ' && matrix[3][5] != ' ' && matrix[4][6] != ' '){
-                    j=1; 
+                else if(brd.matrix[1][3]==brd.matrix[2][4] && brd.matrix[2][4]==brd.matrix[3][5] && brd.matrix[3][5]==brd.matrix[4][6] && brd.matrix[3][1] != ' ' && brd.matrix[2][4] != ' ' && brd.matrix[3][5] != ' ' && brd.matrix[4][6] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[2][3]==matrix[3][4] && matrix[3][4]==matrix[4][5] && matrix[4][5]==matrix[5][6] && matrix[2][3] != ' ' && matrix[3][4] != ' ' && matrix[4][5] != ' ' && matrix[5][6] != ' '){
-                    j=1; 
+                else if(brd.matrix[2][3]==brd.matrix[3][4] && brd.matrix[3][4]==brd.matrix[4][5] && brd.matrix[4][5]==brd.matrix[5][6] && brd.matrix[2][3] != ' ' && brd.matrix[3][4] != ' ' && brd.matrix[4][5] != ' ' && brd.matrix[5][6] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[1][2]==matrix[2][3] && matrix[2][3]==matrix[3][4] && matrix[3][4]==matrix[4][5] && matrix[1][2] != ' ' && matrix[2][4] != ' ' && matrix[3][4] != ' ' && matrix[4][5] != ' '){
-                    j=1; 
+                else if(brd.matrix[1][2]==brd.matrix[2][3] && brd.matrix[2][3]==brd.matrix[3][4] && brd.matrix[3][4]==brd.matrix[4][5] && brd.matrix[1][2] != ' ' && brd.matrix[2][4] != ' ' && brd.matrix[3][4] != ' ' && brd.matrix[4][5] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[3][0]==matrix[4][1] && matrix[4][1]==matrix[5][2] && matrix[5][2]==matrix[6][3] && matrix[3][0] != ' ' && matrix[4][1] != ' ' && matrix[5][2] != ' ' && matrix[6][3] != ' '){
-                    j=1; 
+                else if(brd.matrix[3][0]==brd.matrix[4][1] && brd.matrix[4][1]==brd.matrix[5][2] && brd.matrix[5][2]==brd.matrix[6][3] && brd.matrix[3][0] != ' ' && brd.matrix[4][1] != ' ' && brd.matrix[5][2] != ' ' && brd.matrix[6][3] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[3][1]==matrix[4][2] && matrix[4][2]==matrix[5][3] && matrix[5][3]==matrix[6][4] && matrix[3][1] != ' ' && matrix[4][2] != ' ' && matrix[5][3] != ' ' && matrix[6][4] != ' '){
-                    j=1; 
+                else if(brd.matrix[3][1]==brd.matrix[4][2] && brd.matrix[4][2]==brd.matrix[5][3] && brd.matrix[5][3]==brd.matrix[6][4] && brd.matrix[3][1] != ' ' && brd.matrix[4][2] != ' ' && brd.matrix[5][3] != ' ' && brd.matrix[6][4] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[3][2]==matrix[4][3] && matrix[4][3]==matrix[5][4] && matrix[5][4]==matrix[6][5] && matrix[3][2] != ' ' && matrix[4][3] != ' ' && matrix[5][4] != ' ' && matrix[6][5] != ' '){
-                    j=1; 
+                else if(brd.matrix[3][2]==brd.matrix[4][3] && brd.matrix[4][3]==brd.matrix[5][4] && brd.matrix[5][4]==brd.matrix[6][5] && brd.matrix[3][2] != ' ' && brd.matrix[4][3] != ' ' && brd.matrix[5][4] != ' ' && brd.matrix[6][5] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[2][1]==matrix[3][2] && matrix[3][2]==matrix[4][3] && matrix[4][3]==matrix[5][4] && matrix[2][1] != ' ' && matrix[3][2] != ' ' && matrix[4][3] != ' ' && matrix[5][4] != ' '){
-                    j=1; 
+                else if(brd.matrix[2][1]==brd.matrix[3][2] && brd.matrix[3][2]==brd.matrix[4][3] && brd.matrix[4][3]==brd.matrix[5][4] && brd.matrix[2][1] != ' ' && brd.matrix[3][2] != ' ' && brd.matrix[4][3] != ' ' && brd.matrix[5][4] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[0][2]==matrix[1][3] && matrix[1][3]==matrix[2][4] && matrix[2][4]==matrix[3][5] && matrix[0][2] != ' ' && matrix[1][3] != ' ' && matrix[2][4] != ' ' && matrix[3][5] != ' '){
-                    j=1; 
+                else if(brd.matrix[0][2]==brd.matrix[1][3] && brd.matrix[1][3]==brd.matrix[2][4] && brd.matrix[2][4]==brd.matrix[3][5] && brd.matrix[0][2] != ' ' && brd.matrix[1][3] != ' ' && brd.matrix[2][4] != ' ' && brd.matrix[3][5] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[0][1]==matrix[1][2] && matrix[1][2]==matrix[2][3] && matrix[2][3]==matrix[3][3] && matrix[0][1] != ' ' && matrix[1][2] != ' ' && matrix[2][3] != ' ' && matrix[3][3] != ' '){
-                    j=1; 
+                else if(brd.matrix[0][1]==brd.matrix[1][2] && brd.matrix[1][2]==brd.matrix[2][3] && brd.matrix[2][3]==brd.matrix[3][3] && brd.matrix[0][1] != ' ' && brd.matrix[1][2] != ' ' && brd.matrix[2][3] != ' ' && brd.matrix[3][3] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[1][0]==matrix[2][1] && matrix[2][1]==matrix[3][2] && matrix[3][2]==matrix[4][3] && matrix[1][0] != ' ' && matrix[2][1] != ' ' && matrix[3][2] != ' ' && matrix[4][3] != ' '){
-                    j=1; 
+                else if(brd.matrix[1][0]==brd.matrix[2][1] && brd.matrix[2][1]==brd.matrix[3][2] && brd.matrix[3][2]==brd.matrix[4][3] && brd.matrix[1][0] != ' ' && brd.matrix[2][1] != ' ' && brd.matrix[3][2] != ' ' && brd.matrix[4][3] != ' '){
+                    cek=1; 
                 }
-                else if(matrix[2][0]==matrix[3][1] && matrix[3][1]==matrix[4][2] && matrix[4][2]==matrix[5][3] && matrix[2][0] != ' ' && matrix[3][1] != ' ' && matrix[4][2] != ' ' && matrix[5][3] != ' '){
-                    j=1; 
+                else if(brd.matrix[2][0]==brd.matrix[3][1] && brd.matrix[3][1]==brd.matrix[4][2] && brd.matrix[4][2]==brd.matrix[5][3] && brd.matrix[2][0] != ' ' && brd.matrix[3][1] != ' ' && brd.matrix[4][2] != ' ' && brd.matrix[5][3] != ' '){
+                    cek=1; 
                 }
     }
-    return j;
+    return cek;
 }
-int cektempatkosong(int input){
+int cektempatkosong(int ukuran_papan){
     int i,j,k;
-    if(input==1){
+    if(ukuran_papan==1){
         for (i=0;i<=2;i++){
             for(j=0;j<=2;j++){
-                if(matrix[i][j]==' '){
+                if(brd.matrix[i][j]==' '){
                     return 0;
                 }
             }
         }
     }
-    else if(input==2){
+    else if(ukuran_papan==2){
         for (i=0;i<=4;i++){
             for(j=0;j<=4;j++){
-                if(matrix[i][j]==' '){
+                if(brd.matrix[i][j]==' '){
                     return 0;
                 }
             }
         }
     }
-    else if(input==3){
+    else if(ukuran_papan==3){
         for (i=0;i<=6;i++){
             for(j=0;j<=6;j++){
-                if(matrix[i][j]==' '){
+                if(brd.matrix[i][j]==' '){
                     return 0;
                 }
             }
@@ -534,7 +531,7 @@ void cetakdraw(){
     printf("\n________________________________________________________________________________________________________________________\n");
     printf("________________________________________________________________________________________________________________________\n\n\n");   
 }
-void cetaknamapemenang(char nama1[20],char nama2[20],int player){
+void cetaknamapemenang(int player){
     system("cls");
     if(player==2){
 	 	printf("\n                                           __          __ _ ");                  
@@ -548,7 +545,7 @@ void cetaknamapemenang(char nama1[20],char nama2[20],int player){
         printf("\n\n\n                                               __________________________\n"); 
     	printf("\n                                                        Selamat!!!       ");
     	printf("\n                                                        Player 1 ");
-    	printf("\n                                                        %s", nama1);
+    	printf("\n                                                        %s", ply[0].nama);
     	printf("\n                                               __________________________\n\n");
     }
     else if(player!=1){ 	
@@ -563,7 +560,7 @@ void cetaknamapemenang(char nama1[20],char nama2[20],int player){
         printf("\n\n\n                                               __________________________\n"); 
     	printf("\n                                                        Selamat!!!       ");
     	printf("\n                                                        Player 2 ");
-    	printf("\n                                                        %s", nama2);
+    	printf("\n                                                        %s", ply[1].nama);
     	printf("\n                                               __________________________\n\n");
     }
 }
@@ -614,8 +611,7 @@ void highscore(){
 	fclose(FF);
 	getchar();
 }
-
-void inputnama(char nama1[20],char nama2 [20]){
+void inputnama(){
 	printf("\n                _______   _    _______        _______   ______   ______        _______   ______   _______");
     printf("\n               |___ ___| | |  |  _____|      |___ ___| |  __  | |  ____|      |___ ___| |  __  | |  _____|");
     printf("\n                  | |    | |  | |               | |    | |__| | | |              | |    | |  | | | |_____");
@@ -629,11 +625,11 @@ void inputnama(char nama1[20],char nama2 [20]){
 	printf("\n\n\n                                           ______________________________");
     printf("\n\n                                                Input Nama player 1:\n");
     printf("                                                ");
-    scanf("\n%[^\n]",nama1);
+    scanf("\n%[^\n]",&ply[0].nama);
 	printf("                                           ______________________________");
     printf("\n\n                                                Input Nama player 2:\n");
     printf("                                                ");
-    scanf("\n%[^\n]",nama2);
+    scanf("\n%[^\n]",&ply[1].nama);
 }
 void exitprogram(){
     system("cls");
@@ -642,6 +638,7 @@ void exitprogram(){
     exit(1);
 
 }
-void timer(){
+void timer()
+{
     
 }
