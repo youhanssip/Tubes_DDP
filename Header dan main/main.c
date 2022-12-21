@@ -52,7 +52,7 @@ void play(){
     inisialisasi();
     inputnama();
     system("cls");
-    pilihpapan();
+    displaypilihpapan();
     inputpilihan(&inputfromplayer);
     system("cls");
     buatpapan(inputfromplayer);
