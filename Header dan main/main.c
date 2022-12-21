@@ -9,7 +9,7 @@ int main(){
         play();
     }
     if (inputfromplayer==2){
-        highscore();
+        aturanbermain();
         inputpilihan(&inputfromplayer);
         if(inputfromplayer==1){
             main();
@@ -26,7 +26,7 @@ int main(){
             play();
         }
         if (inputfromplayer==2){
-            highscore();
+            aturanbermain();
         }
         if (inputfromplayer==3){
             exitprogram();
@@ -580,7 +580,7 @@ void mainmenu(){
     printf("\n                                             |                          |");    
     printf("\n                                             |   Silahkan Pilih Menu:   |");
     printf("\n                                             |   1.Play                 |");
-    printf("\n                                             |   2.HighScore            |");
+    printf("\n                                             |   2.Aturanbermain        |");
     printf("\n                                             |   3.Exit                 |");
     printf("\n                                             |__________________________|\n\n");
     printf("\n                                                 Input Angka Anda: ");
@@ -594,11 +594,11 @@ void tampilanakhir(){
     printf("\n                                                |__________________________|");
     printf("\n                                                    Input Pilihan Anda: ");
 }
-void highscore(){
+void aturanbermain(){
     FILE *FF; //penunjuk ke file
 	char CC; //var penunjuk karakter yang dibaca
 	system("cls");
-	if((FF=fopen("Highscore.txt","r"))== NULL) { //Buka file mode baca
+	if((FF=fopen("Aturan.txt","r"))== NULL) { //Buka file mode baca
 		printf("Pembukaan File Gagal !");
 		exit(1); //keluar program
 	}

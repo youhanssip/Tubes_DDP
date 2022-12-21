@@ -28,7 +28,7 @@ void cetaknamapemenang(int giliran);
 void cetakdraw();
 void tampilanakhir();
 void mainmenu();
-void highscore();
+void aturanbermain();
 void exitprogram();
 void timer();
 //variabel Global
